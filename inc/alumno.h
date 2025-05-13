@@ -39,12 +39,14 @@ extern "C" {
 
 /* === Public data type declarations =============================================================================== */
 
-//! Estructura que representa un alumno
+/**
+ * @brief Estructura que representa un alumno.
+ */
 typedef struct alumno_s {
-    char nombre[20];    //!< Nombre del alumno
-    char apellido[20];  //!< Apellido del alumno
-    uint32_t documento; //!< Número de documento del alumno
-} const * alumno_t;
+    char nombre[20];    /**< Nombre del alumno. */
+    char apellido[20];  /**< Apellido del alumno. */
+    uint32_t documento; /**< Número de documento del alumno. */
+} const * alumno_t;     /**< Tipo de puntero a alumno_s. */
 
 /* === Public variable declarations ================================================================================ */
 

@@ -39,6 +39,7 @@ SPDX-License-Identifier: MIT
  * Esta función escribe un par campo-valor en formato JSON dentro del buffer especificado.
  * El formato resultante es: `"campo":"valor"`.
  *
+ * @internal
  * @param campo El nombre del campo a serializar.
  * @param valor El valor del campo.
  * @param buffer El buffer donde se escribirá la cadena serializada.
@@ -53,13 +54,14 @@ static int SerializarCadena(char campo[], char valor[], char buffer[], uint32_t 
  * Esta función escribe un par campo-valor en formato JSON dentro del buffer especificado.
  * El formato resultante es: `"campo":valor`.
  *
+ * @internal
  * @param campo El nombre del campo a serializar.
  * @param valor El valor numérico del campo.
  * @param buffer El buffer donde se escribirá la cadena serializada.
  * @param disponibles La cantidad máxima de bytes disponibles en el buffer.
  * @return int La cantidad de bytes escritos en el buffer, o un valor negativo si ocurrió un error.
  */
-int SerializarEntero(char campo[], int valor, char buffer[], uint32_t disponibles);
+static int SerializarEntero(char campo[], int valor, char buffer[], uint32_t disponibles);
 
 /* === Private variable definitions ================================================================================ */
 
