@@ -6,7 +6,7 @@ BreakBeforeBraces: Attach
 AllowShortLoopsOnASingleLine: true
 AllowShortBlocksOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
-AllowShortFunctionsOnASingleline: false
+AllowShortFunctionsOnASingleLine: false
 AllowShortLambdasOnASingleLine: false
 SortIncludes: false
 IndentCaseLabels: false
@@ -14,4 +14,4 @@ ColumnLimit: 120
 AccessModifierOffset: -4
 FixNamespaceComments: false
 PointerAlignment: Middle
-AlignConsecutiveMacros: Across Empty LinesAndComments
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
