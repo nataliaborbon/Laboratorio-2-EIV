@@ -8,7 +8,7 @@ BIN_DIR = $(OUT_DIR)/bin
 SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
-include $(OBJ_DIR)/*.d
+-include $(OBJ_DIR)/*.d
 
 all: $(OBJ_FILES)
 	@echo "Linking object files to create the executable"
