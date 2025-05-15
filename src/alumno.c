@@ -133,7 +133,7 @@ alumno_t CrearAlumno(char * nombre, char * apellido, uint32_t dni) {
 #ifdef USAR_MEMORIA_DINAMICA
     alumno_t self = malloc(sizeof(struct alumno_s));
 #else
-    alumno_t self = CrearInstancia;
+    alumno_t self = CrearInstancia();
 #endif
     if (self != NULL) {
         self->documento = dni;
