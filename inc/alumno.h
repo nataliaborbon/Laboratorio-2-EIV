@@ -42,7 +42,7 @@ extern "C" {
 /**
  * @brief Estructura que representa un alumno.
  */
-typedef struct alumno_s * alumno_t; /**< Tipo de puntero a alumno_s. */
+typedef struct alumno_s * alumno_t;
 
 /* === Public variable declarations ================================================================================ */
 

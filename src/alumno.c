@@ -28,6 +28,8 @@ SPDX-License-Identifier: MIT
 #include <stdio.h>
 #include "config.h"
 #include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
 
 /* === Macros definitions ========================================================================================== */
 
@@ -45,7 +47,7 @@ struct alumno_s {
 #ifndef USAR_MEMORIA_DINAMICA
     bool ocupado; /**< Indica si la instancia esta ocupada. */
 #endif
-}
+};
 
 /* === Private function declarations =============================================================================== */
 
