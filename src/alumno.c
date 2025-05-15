@@ -26,12 +26,41 @@ SPDX-License-Identifier: MIT
 
 #include "alumno.h"
 #include <stdio.h>
+#include "config.h"
+#include <stdbool.h>
 
 /* === Macros definitions ========================================================================================== */
 
+#ifndef ALUMNOS_MAX_INSTANCIAS
+/** @brief Cantidad máxima de alumnos */
+#define ALUMNOS_MAX_INSTANCIAS 2
+#endif
+
 /* === Private data type declarations ============================================================================== */
 
+struct alumno_s {
+    char nombre[20];    /**< Nombre del alumno. */
+    char apellido[20];  /**< Apellido del alumno. */
+    uint32_t documento; /**< Número de documento del alumno. */
+#ifndef USAR_MEMORIA_DINAMICA
+    bool ocupado; /**< Indica si la instancia esta ocupada. */
+#endif
+}
+
 /* === Private function declarations =============================================================================== */
+
+/**
+ * @brief Crea una nueva instancia de alumno.
+ *
+ * Esta función busca en un arreglo interno una posición libre para reservarla
+ * como una nueva instancia de alumno. Marca la instancia como ocupada y devuelve
+ * un puntero a ella. Si no hay instancias libres disponibles, devuelve NULL.
+ *
+ * @internal
+ * @return alumno_t Puntero a la nueva instancia de alumno si hay espacio disponible,
+ * o NULL si se alcanzó el límite máximo de instancias.
+ */
+static alumno_t CrearInstancia();
 
 /**
  * @brief Serializa un campo de texto y su valor en formato JSON.
@@ -46,10 +75,10 @@ SPDX-License-Identifier: MIT
  * @param disponibles La cantidad máxima de bytes disponibles en el buffer.
  * @return int La cantidad de bytes escritos en el buffer, o un valor negativo si ocurrió un error.
  */
-static int SerializarCadena(char campo[], char valor[], char buffer[], uint32_t disponibles);
+int static SerializarCadena(char campo[], char valor[], char buffer[], uint32_t disponibles);
 
 /**
- * @brief Serializa un campo numérico y su valor en formato JSON.
+ * @brief Serializa un campo de texto y su valor en formato JSON.
  *
  * Esta función escribe un par campo-valor en formato JSON dentro del buffer especificado.
  * El formato resultante es: `"campo":valor`.
@@ -65,9 +94,28 @@ static int SerializarEntero(char campo[], int valor, char buffer[], uint32_t dis
 
 /* === Private variable definitions ================================================================================ */
 
+#ifndef USAR_MEMORIA_DINAMICA
+static struct alumno_s instancias[ALUMNOS_MAX_INSTANCIAS] = {0};
+#endif
+
 /* === Public variable definitions ================================================================================= */
 
 /* === Private function definitions ================================================================================ */
+
+#ifndef USAR_MEMORIA_DINAMICA
+static alumno_t CrearInstancia() {
+    int i;
+    alumno_t self = NULL;
+    for (i = 0; i < ALUMNOS_MAX_INSTANCIAS; i++) {
+        if (!instancias[i].ocupado) {
+            instancias[i].ocupado = true;
+            self = &instancias[i];
+            break;
+        }
+    }
+    return self;
+}
+#endif
 
 int SerializarCadena(char campo[], char valor[], char buffer[], uint32_t disponibles) {
     return snprintf(buffer, disponibles, "\"%s\":\"%s\"", campo, valor);
@@ -78,6 +126,20 @@ int SerializarEntero(char campo[], int valor, char buffer[], uint32_t disponible
 }
 
 /* === Public function implementation ============================================================================== */
+
+alumno_t CrearAlumno(char * nombre, char * apellido, uint32_t dni) {
+#ifdef USAR_MEMORIA_DINAMICA
+    alumno_t self = malloc(sizeof(struct alumno_s));
+#else
+    alumno_t self = CrearInstancia;
+#endif
+    if (self != NULL) {
+        self->documento = dni;
+        strncpy(self->nombre, nombre, sizeof(self->nombre) - 1);
+        strncpy(self->apellido, apellido, sizeof(self->apellido) - 1);
+    }
+    return self;
+}
 
 int Serializar(const alumno_t alumno, char buffer[], uint32_t size) {
     int escritos = 0;
