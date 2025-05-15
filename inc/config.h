@@ -1,0 +1,1 @@
+#define USAR_MEMORIA_DINAMICA
