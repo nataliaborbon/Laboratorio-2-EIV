@@ -65,7 +65,7 @@ struct alumno_s {
 static alumno_t CrearInstancia();
 
 /**
- * @brief Serializa un campo de texto y su valor en formato JSON.
+ * @brief Serializa un campo y su valor entero en JSON.
  *
  * Esta función escribe un par campo-valor en formato JSON dentro del buffer especificado.
  * El formato resultante es: `"campo":"valor"`.
