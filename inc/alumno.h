@@ -42,27 +42,36 @@ extern "C" {
 /**
  * @brief Estructura que representa un alumno.
  */
-typedef struct alumno_s {
-    char nombre[20];    /**< Nombre del alumno. */
-    char apellido[20];  /**< Apellido del alumno. */
-    uint32_t documento; /**< Número de documento del alumno. */
-} const * alumno_t;     /**< Tipo de puntero a alumno_s. */
+typedef struct alumno_s * alumno_t; /**< Tipo de puntero a alumno_s. */
 
 /* === Public variable declarations ================================================================================ */
 
 /* === Public function declarations ================================================================================ */
 
 /**
- * @brief Serializa los datos de un alumno en formato JSON.
+ * @brief Función para crear un nuevo alumno
+ *
+ * Esta función asigna memoria para un nuevo alumno y copia los datos
+ * proporcionados para el nombre, apellido y documento de identidad.
+ *
+ * @param nombre    Nombre del alumno
+ * @param apellido  Apellido del alumno
+ * @param dni       Documento del alumno
+ * @return alumno_t Referencia al nuevo alumno creado
+ */
+alumno_t CrearAlumno(char * nombre, char * apellido, uint32_t dni);
+
+/**
+ * @brief Función para serializar los datos de un alumno en formato JSON.
  *
  * Esta función toma los datos de un alumno (nombre, apellido y documento) y los convierte
  * en una cadena de caracteres con formato JSON, incluyendo llaves y separadores entre campos.
  * El formato resultante es: `{"nombre":"Juan","apellido":"Perez","documento":12345678}`.
  *
- * @param alumno Un puntero a la estructura con los datos del alumno a serializar.
- * @param buffer El buffer donde se escribirá la cadena serializada.
- * @param size La cantidad máxima de bytes disponibles en el buffer.
- * @return int La cantidad de bytes escritos en el buffer, o -1 si ocurrió un error (espacio insuficiente).
+ * @param alumno    Referencia al alumno a serializar.
+ * @param buffer    El buffer donde se escribirá la cadena serializada.
+ * @param size      La cantidad máxima de bytes disponibles en el buffer.
+ * @return int      La cantidad de bytes escritos en el buffer, o -1 si ocurrió un error (espacio insuficiente).
  */
 int Serializar(const alumno_t alumno, char buffer[], uint32_t size);
 
